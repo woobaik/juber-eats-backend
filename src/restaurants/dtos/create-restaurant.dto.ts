@@ -1,13 +1,9 @@
-import { ArgsType, InputType, Field } from '@nestjs/graphql';
+import { InputType, OmitType } from '@nestjs/graphql';
+import { Restaurant } from '../entities/restaurant.entity';
 
-@ArgsType()
-export class CreateRestaurantDto {
-  @Field(() => String)
-  name: string;
-  @Field((type) => Boolean, { nullable: true })
-  isGood?: boolean;
-  @Field((type) => String)
-  address: string;
-  @Field((type) => String)
-  owner: string;
-}
+@InputType()
+export class CreateRestaurantDto extends OmitType(
+  Restaurant,
+  ['id'] as const,
+  InputType,
+) {}
