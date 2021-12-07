@@ -7,6 +7,10 @@ import { RestaurantResolver } from './restaurants/restaurants.resolver';
 import * as Joi from 'joi';
 import { Restaurant } from './restaurants/entities/restaurant.entity';
 
+import { User } from './users/entities/user.entity';
+import { UsersModule } from './users/users.module';
+import { CommonModule } from './common/common.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -31,12 +35,13 @@ import { Restaurant } from './restaurants/entities/restaurant.entity';
       database: process.env.DB_DATABASE,
       synchronize: process.env.NODE_ENV !== 'prod',
       logging: true,
-      entities: [Restaurant],
+      entities: [User],
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
     }),
-    RestaurantsModule,
+    UsersModule,
+    CommonModule,
   ],
   controllers: [],
   providers: [],
